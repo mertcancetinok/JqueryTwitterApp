@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Inria+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-button@latest/dist/index.min.js"></script>
+    <script src="https://kit.fontawesome.com/872bacee61.js" crossorigin="anonymous"></script>
+
+    <title>Twitter</title>
+</head>
+<body>
+    <div id="content">
+            <div class="container">
+                <div id="left-side">
+                    <div id="left-top">
+                        <div class="profil-picture">
+                            <img src="images/avatar.png" alt="Profil Picture">   
+                        </div>
+                        <div class="profil-info">
+                            <h2>MERT CAN ÇETİNOK</h2>
+                            <h2 id="nickname">@mertcancetinok</h2>
+                            <div class="popularity">
+                                <h2>100 Takipçi</h2>
+                                <h2>120 Takip Edilen</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="left-bottom">
+                        <h1>Neler Konuşuluyor</h1>
+                        <ul>
+                            <li>
+                                <h3>#togg</h3>
+                            </li>
+                            <li>
+                                <h3>#osestürkiyeyılbaşı</h3>
+                            </li>
+                            <li>
+                                <h3>#MutluYıllar</h3>
+                            </li>
+                            <li>
+                                <h3>#2010lardaBeşiktaş</h3>
+                            </li>
+                            <li>
+                                <h3>#YılınSporKaresi</h3>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="right-side">
+                    <div class="tweet-side">
+                            <textarea id="tweet" cols="30" rows="30" class="tweetbox"></textarea>
+                            <input type="submit" value="Yeni Tweet" id="getweet">
+                    </div>
+                    <p id="tweetlength">240</p>
+                    <div id="space"></div>
+                    
+                </div>
+                
+            </div>
+    </div>
+
+</body>
+<script>
+    var input=document.querySelector("#tweet");
+    var picker=new EmojiButton({
+       position:"right-start" 
+    })
+
+    picker.on("emoji",function(emoji){
+        input.value+=emoji;
+    })
+
+    input.addEventListener('click',function(){
+     picker.pickerVisible ? picker.hidePicker() : picker.showPicker(input);
+    })
+
+
+
+    var maxlength=240;
+    $(document).ready(function () {
+            
+       
+        $("textarea").keyup(function (e) { 
+            var length=$("#tweet").val().length;
+            $("#tweetlength").text(maxlength-length);
+            if(maxlength-length<=0){
+                $("#getweet").attr("disabled", true);
+                $("textarea").css("color","red");
+                $("#tweetlength").css("color","red");
+            }else if(maxlength-length>0){
+                $("textarea").css("color","black");
+                $("#tweetlength").css("color","white");
+                $("#getweet").attr("disabled", false);	
+
+            }
+        });
+
+        
+        var d = Date(Date.now()); 
+  
+  // Converting the number of millisecond in date string 
+         a = d.toString() 
+  
+  // Printing the current date                     
+  $(".tdate>p").text("sa");  
+
+
+
+
+
+        $("#getweet").click(function (e) { 
+            var slength=$("textarea").val();
+            if(slength==0){
+                alert("boş bir tweet gönderemezsin");
+            }else{
+                $("#space").prepend("<div class='tweets'><div class='thead'><div class='tinfo'><img src='images/avatar.png'><div class='userinfo'> <p>Mert Can Çetinok</p><p>@cetinokmertcan</p></div></div> <div class='tdate'><p>20.12.2019</p></div></div><div class='tcontent'><p>"+slength+"</p><div class='emoji'><span class='fas fa-heart'></span><span class='fas fa-thumbs-up'></span><span class='fas fa-retweet'></span></div><button id='delete'>Tweeti Sil</button></div></div>");
+                $("textarea").val('');
+                $("#tweetlength").text("240");
+                var d = new Date();
+                $(".tdate p").text(d.toDateString());
+                
+                $("#delete").click(function (e) { 
+                $(this).parent().parent().remove();
+            console.log("sa");
+            
+        });
+        
+                $(".fa-heart").click(function (e) { 
+                    $(this).css("color","red");
+                });
+                $(".fa-thumbs-up").click(function (e) { 
+                    $(this).css("color","#3b5998");  
+                });
+                $(".fa-retweet").click(function (e) {
+
+                    $(this).css("color","limegreen");
+                    
+                });
+
+            }
+            console.log(slength);
+
+            
+            //prepend ayarı 
+
+
+            
+        });
+
+
+
+        
+
+    });
+</script>
+    
+</html>
